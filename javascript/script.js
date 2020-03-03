@@ -24,7 +24,7 @@ function changeColor(){
 }
 
 
-function createGrid(y = 2){
+function createGrid(y = 4){
 	container.style.grid = `repeat(${y}, 1fr)/repeat(${y}, 1fr)`;
 	
 	for (let i = 0;i<y**2;i++){
