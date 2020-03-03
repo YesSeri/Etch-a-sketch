@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<style>
+
+    #container{
+        display:grid;
+        height:800px;
+        max-width:960px;
+        border-top:solid black 1px;
+        border-left:solid black 1px;
+        margin:auto;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .colorSquare {
+        border-bottom:solid black 1px;
+        border-right:solid black 1px;
+    }
+    
+    button {
+        margin:0 auto;
+        display:block;
+        margin-bottom: 10px;
+    }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Etch-a-sketch</title>
+</head>
+<body>
+    <button id=clearButton>Clear</button>
+    <div id='container'>
+    </div>
+    <script src="javascript/script.js" defer> </script>
+</body>
