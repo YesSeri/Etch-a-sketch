@@ -1,10 +1,20 @@
 const clearButton = document.querySelector("#clearButton")
+const changeButton = document.querySelector("#changeButton")
 const container = document.querySelector("#container")
 createGrid()
 
+let mode = 1
+
+changeButton.addEventListener("click", function(e) {
+	if (mode===1){
+		mode = 2
+	}else{
+		mode=1
+	}
+	console.log(mode)
+})
 
 addListenerClearButton()
-
 
 function addListenerClearButton (){
 	clearButton.addEventListener("click", function(e) {
@@ -20,7 +30,31 @@ function addListenerClearButton (){
 
 function changeColor(){
 	const colorSquare = event.target;
-	colorSquare.setAttribute('style', `background: ${randColor()}`)
+	let RGB = randColor()
+
+	if (mode===1){
+		colorSquare.setAttribute('style', `background: rgb(${RGB[0]}, ${RGB[1]}, ${RGB[2]})`)
+		
+	}else{
+		let color = colorSquare.style.backgroundColor
+		stringArray = color.slice(4,-1).replace(/\s+/g, '').split(",")
+		array=[parseInt(stringArray[0],10),parseInt(stringArray[1],10),parseInt(stringArray[2],10)]
+		console.log(array)
+		if(array[0]!=array[1]||array[0]!=array[2]){
+			//console.log("1")
+			averageGrey = Math.round((array[0]+array[1]+array[2])/3)
+			colorSquare.setAttribute('style', `background: rgb(${averageGrey},${averageGrey},${averageGrey})`)
+		}else if(array[0]>25){
+			//console.log("2")
+			newColor=array[0]-25
+			colorSquare.setAttribute('style', `background: rgb(${newColor},${newColor},${newColor})`)
+		}else{
+			//console.log("3")
+			colorSquare.setAttribute('style', `background: rgb(${0},${0},${0})`)
+		}
+
+	}
+	
 }
 
 
@@ -30,6 +64,7 @@ function createGrid(y = 4){
 	for (let i = 0;i<y**2;i++){
 		const div = document.createElement('div')
 		div.classList.add('colorSquare');  
+		div.setAttribute('style', `background: rgb(255,255,255)`)
 		container.appendChild(div)
 		div.addEventListener("mouseenter", changeColor)		
 	}
@@ -41,10 +76,11 @@ function deleteDivs(){
 }
 
 function randColor() {
-	let r = Math.floor(Math.random()*255)
-	let g = Math.floor(Math.random()*255)
-	let b = Math.floor(Math.random()*255)
-
-	return `rgb(${r},${g},${b})`
+	let RGB = [0,0,0]
+	RGB[0] = Math.floor(Math.random()*255)
+	RGB[1] = Math.floor(Math.random()*255)
+	RGB[2] = Math.floor(Math.random()*255)
+	return RGB
+	
 }
 
